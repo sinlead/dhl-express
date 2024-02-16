@@ -1,0 +1,58 @@
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'dhl-express.gemspec'
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 25
+
+Metrics/AbcSize:
+  Max: 25
+
+Style/Documentation:
+  Enabled: false
+
+Style/RedundantReturn:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Layout/EmptyLinesAroundClassBody:
+  EnforcedStyle: empty_lines
+
+Layout/EmptyLinesAroundModuleBody:
+  EnforcedStyle: empty_lines
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Naming/VariableNumber:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
