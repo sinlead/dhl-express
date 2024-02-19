@@ -1,8 +1,10 @@
 # Dhl::Express
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/dhl/express`. To experiment with that code, run `bin/console` for an interactive prompt.
+DHL API services for
 
-TODO: Delete this and the text above, and describe your gem
+- retrive rates
+- create shipment
+- shipment tracking
 
 ## Installation
 
@@ -27,7 +29,8 @@ Or install it yourself as:
 #### Retrive Rates for a one piece shipment
 
 ```ruby
-# be advised: not all params are listed in this example, all the required params are listed, but optional ones may be left out
+# be advised: not all params are listed in this example,  
+# all the required params are listed, but optional ones may be left out  
 data = {
   accountNumber: "123456789",
   originCountryCode: "TW",
@@ -48,7 +51,8 @@ response = Dhl::Express::Methods.new(dhl_client).retrieve_rates_for_one_piece(da
 #### Retrive Rates for a Multi-piece shipment
 
 ```ruby
-# be advised: not all params are listed in this example, all the required params are listed, but optional ones may be left out
+# be advised: not all params are listed in this example,  
+# all the required params are listed, but optional ones may be left out  
 data = {
   customerDetails: {
     shipperDetails: {
@@ -82,7 +86,8 @@ response = Dhl::Express::Methods.new(dhl_client).retrieve_rates_for_multi_piece(
 #### Create Shipment
 
 ```ruby
-# be advised: not all params are listed in this example, all the required params are listed, but optional ones may be left out
+# be advised: not all params are listed in this example,  
+# all the required params are listed, but optional ones may be left out  
 data = {
   plannedShippingDateAndTime: "2024-02-19T13:00:00GMT+00:00",
   pickup: {
@@ -159,7 +164,8 @@ response = Dhl::Express::Methods.new(dhl_client).create_shipment(data)
 #### Track single or multiple DHL Express Shipments
 
 ```ruby
-# be advised: not all params are listed in this example, all the required params are listed, but optional ones may be left out
+# be advised: not all params are listed in this example,  
+# all the required params are listed, but optional ones may be left out  
 data = {
   shipmentTrackingNumber: [0987654321],
 }
