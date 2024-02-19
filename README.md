@@ -22,7 +22,149 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Retrieve Rates
+
+#### Retrive Rates for a one piece shipment
+
+```ruby
+# be advised: not all params are listed in this example, all the required params are listed, but optional ones may be left out
+data = {
+  accountNumber: "123456789",
+  originCountryCode: "TW",
+  originCityName: "Taipei",
+  destinationCountryCode: "CZ",
+  destinationCityName: "Prague",
+  weight: 1,
+  length: 15,
+  width: 10,
+  height: 5,
+  plannedShippingDate: "2024-02-19",
+  isCustomsDeclarable: false,
+  unitOfMeasurement: "metric",
+}
+response = Dhl::Express::Methods.new(dhl_client).retrieve_rates_for_one_piece(data)
+```
+
+#### Retrive Rates for a Multi-piece shipment
+
+```ruby
+# be advised: not all params are listed in this example, all the required params are listed, but optional ones may be left out
+data = {
+  customerDetails: {
+    shipperDetails: {
+      postalCode: "14800",
+      cityName: "Prague",
+      countryCode: "CZ",
+    },
+    receiverDetails: {
+      postalCode: "14800",
+      cityName: "Prague",
+      countryCode: "CZ",
+    },
+  },
+  plannedShippingDateAndTime: "2024-02-19T13:00:00GMT+00:00",
+  unitOfMeasurement: "metric",
+  isCustomsDeclarable: true,
+  packages: [
+    {
+      weight: 10.5,
+      dimensions: {
+        length: 25,
+        width: 35,
+        height: 15,
+      },
+    },
+  ],
+}
+response = Dhl::Express::Methods.new(dhl_client).retrieve_rates_for_multi_piece(data)
+```
+
+#### Create Shipment
+
+```ruby
+# be advised: not all params are listed in this example, all the required params are listed, but optional ones may be left out
+data = {
+  plannedShippingDateAndTime: "2024-02-19T13:00:00GMT+00:00",
+  pickup: {
+    isRequested: true,
+    pickupDetails: {
+      postalAddress: {
+        postalCode: "14800",
+        cityName: "Prague",
+        countryCode: "CZ",
+        addressLine1: "some street",
+      },
+      contactInformation: {
+        phone: "+886987654321",
+        companyName: "companyName",
+        fullName: "fullName",
+      },
+    },
+  },
+  productCode: "D", # DHL Express Global Product code
+  accounts: [
+    {
+      typeCode: "shipper",
+      number: "123456789",
+    },
+  ],
+  customerDetails: {
+    shipperDetails: {
+      postalAddress: {
+        postalCode: "14800",
+        cityName: "Prague",
+        countryCode: "CZ",
+        addressLine1: "some street",
+      },
+      contactInformation: {
+        phone: "+886987654321",
+        companyName: "companyName",
+        fullName: "fullName",
+      },
+    },
+    receiverDetails: {
+      postalAddress: {
+        postalCode: "14800",
+        cityName: "Prague",
+        countryCode: "CZ",
+        addressLine1: "some street",
+      },
+      contactInformation: {
+        phone: "+886987654321",
+        companyName: "companyName",
+        fullName: "fullName",
+      },
+    },
+  },
+  content: {
+    packages: [
+      {
+        weight: 22.5,
+        dimensions: {
+          length: 10,
+          width: 15,
+          height: 20,
+        },
+      },
+    ],
+    isCustomsDeclarable: false,
+    description: "shipment description",
+    incoterm: "DAP", # The Incoterms rules
+    unitOfMeasurement: "metric"
+  },
+}
+response = Dhl::Express::Methods.new(dhl_client).create_shipment(data)
+```
+
+#### Track single or multiple DHL Express Shipments
+
+```ruby
+# be advised: not all params are listed in this example, all the required params are listed, but optional ones may be left out
+data = {
+  shipmentTrackingNumber: [0987654321],
+}
+response = Dhl::Express::Methods.new(dhl_client).track_shipments
+```
 
 ## Development
 
