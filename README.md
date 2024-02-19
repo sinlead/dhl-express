@@ -2,7 +2,7 @@
 
 DHL API services for
 
-- retrive rates
+- retrieve rates
 - create shipment
 - shipment tracking
 
