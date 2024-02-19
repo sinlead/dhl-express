@@ -30,12 +30,12 @@ RSpec.describe Dhl::Express::Methods do
   describe "#retrieve_rates_for_multi_piece" do
     subject { described_class.new(client).retrieve_rates_for_multi_piece(data) }
 
-    let(:data) { { accountNumber: "account_number", originCountryCode: "TW" } }
+    let(:data) { { accounts: [{ typeCode: "shipper", number: "666" }] } }
 
     before do
       expect_any_instance_of(Dhl::Express::Api).to receive(:post).with(
         { username: "username", password: "password" },
-        { accountNumber: "account_number", originCountryCode: "TW" },
+        { accounts: [{ typeCode: "shipper", number: "666" }] },
         "/rates",
       ).and_return("success_response")
     end
