@@ -24,8 +24,6 @@ Or install it yourself as:
 
 ## Usage
 
-### Retrieve Rates
-
 #### Retrive Rates for a one piece shipment
 
 ```ruby
