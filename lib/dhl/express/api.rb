@@ -38,6 +38,14 @@ module Dhl
         http.request(request)
       end
 
+      def delete(auth, request_params, path)
+        uri = URI("#{api_base_url}#{path}?#{URI.encode_www_form(request_params)}")
+        http = init_http(uri)
+        request = Net::HTTP::Delete.new(uri.request_uri)
+        request.basic_auth(auth[:username], auth[:password])
+        http.request(request)
+      end
+
       private
 
       def init_http(uri)

@@ -40,4 +40,24 @@ RSpec.describe Dhl::Express::Api do
       it { is_expected.to have_attributes(body: response_body.to_json) }
     end
   end
+
+  describe "#delete" do
+    subject { described_class.new.delete(auth, request_params, path) }
+
+    let(:auth) { { username: "username", password: "password" } }
+    let(:request_params) { { requestorName: "aaa", reason: "bbb" } }
+    let(:path) { "/pickups/PRG999126012345" }
+    let(:request_url) do
+      "https://express.api.dhl.com/mydhlapi/pickups/PRG999126012345?requestorName=aaa&reason=bbb"
+    end
+    let(:response_body) { nil }
+
+    context "when request success" do
+      before do
+        stub_request(:delete, request_url).to_return(body: response_body.to_json)
+      end
+
+      it { is_expected.to have_attributes(body: response_body.to_json) }
+    end
+  end
 end
