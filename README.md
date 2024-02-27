@@ -170,6 +170,19 @@ data = {
 response = Dhl::Express::Methods.new(dhl_client).track_shipments
 ```
 
+#### Cancel a pickup booking request
+
+```ruby
+# be advised: not all params are listed in this example,  
+# all the required params are listed, but optional ones may be left out  
+data = {
+  dispatchConfirmationNumber: "123"
+  requestorName: "aaa",
+  reason: "bbb",
+}
+response = Dhl::Express::Methods.new(dhl_client).cancel_pickup
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
