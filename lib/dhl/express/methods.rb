@@ -60,6 +60,12 @@ module Dhl
         dhl_api.get({ username: client.username, password: client.password }, request_params, path)
       end
 
+      def cancel_pickup(data)
+        path = "/pickups/#{data[:dispatchConfirmationNumber]}"
+        request_params = data.slice(:requestorName, :reason)
+        dhl_api.delete({ username: client.username, password: client.password }, request_params, path)
+      end
+
       private
 
       def dhl_api

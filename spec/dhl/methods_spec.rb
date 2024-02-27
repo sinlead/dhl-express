@@ -74,4 +74,20 @@ RSpec.describe Dhl::Express::Methods do
 
     it { is_expected.to eq("success_response") }
   end
+
+  describe "#cancel_pickup" do
+    subject { described_class.new(client).cancel_pickup(data) }
+
+    let(:data) { { dispatchConfirmationNumber: "123", requestorName: "aaa", reason: "bbb" } }
+
+    before do
+      expect_any_instance_of(Dhl::Express::Api).to receive(:delete).with(
+        { username: "username", password: "password" },
+        { requestorName: "aaa", reason: "bbb" },
+        "/pickups/123",
+      ).and_return("success_response")
+    end
+
+    it { is_expected.to eq("success_response") }
+  end
 end
