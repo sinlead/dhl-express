@@ -176,7 +176,7 @@ response = Dhl::Express::Methods.new(dhl_client).track_shipments
 # be advised: not all params are listed in this example,  
 # all the required params are listed, but optional ones may be left out  
 data = {
-  dispatchConfirmationNumber: "123"
+  dispatchConfirmationNumber: "123",
   requestorName: "aaa",
   reason: "bbb",
 }
