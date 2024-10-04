@@ -20,10 +20,10 @@ module Dhl
         end
       end
 
-      def get(auth, request_params, path)
+      def get(auth, request_params, path, headers = {})
         uri = URI("#{api_base_url}#{path}?#{URI.encode_www_form(request_params)}")
         http = init_http(uri)
-        request = Net::HTTP::Get.new(uri.request_uri)
+        request = headers.empty? ? Net::HTTP::Get.new(uri.request_uri) : Net::HTTP::Get.new(uri.request_uri, headers)
         request.basic_auth(auth[:username], auth[:password])
         http.request(request)
       end

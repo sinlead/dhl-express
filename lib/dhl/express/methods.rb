@@ -6,6 +6,8 @@ module Dhl
 
     class Methods
 
+      KEYS_OF_HEADERS = %i[Accept-Language]
+
       KEYS_OF_RETRIEVE_RATES_FOR_ONE_PIECE = %i[
         accountNumber originCountryCode originPostalCode originCityName destinationCountryCode destinationPostalCode
         destinationCityName weight length width height plannedShippingDate isCustomsDeclarable unitOfMeasurement
@@ -54,10 +56,11 @@ module Dhl
         dhl_api.post({ username: client.username, password: client.password }, request_params, path)
       end
 
-      def track_shipments(data)
+      def track_shipments(data, header_options = {})
         path = "/tracking"
         request_params = data.slice(*KEYS_OF_TRACK_SHIPMENTS)
-        dhl_api.get({ username: client.username, password: client.password }, request_params, path)
+        headers = header_options.slice(*KEYS_OF_HEADERS)
+        dhl_api.get({ username: client.username, password: client.password }, request_params, path, headers)
       end
 
       def cancel_pickup(data)
