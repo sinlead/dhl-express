@@ -60,17 +60,17 @@ RSpec.describe Dhl::Express::Methods do
   end
 
   describe "#track_shipments" do
-    subject { described_class.new(client).track_shipments(data, headers) }
+    subject { described_class.new(client).track_shipments(data, language) }
 
     let(:data) { { shipmentTrackingNumber: %w[123 456] } }
-    let(:headers) { { "Accept-Language": "eng", "unwanted": "header" } }
+    let(:language) { "chi" }
 
     before do
       expect_any_instance_of(Dhl::Express::Api).to receive(:get).with(
         { username: "username", password: "password" },
         { shipmentTrackingNumber: %w[123 456] },
         "/tracking",
-        { "Accept-Language": "eng" },
+        { "Accept-Language": "chi" },
       ).and_return("success_response")
     end
 

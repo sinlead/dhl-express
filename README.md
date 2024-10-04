@@ -167,10 +167,10 @@ response = Dhl::Express::Methods.new(dhl_client).create_shipment(data)
 data = {
   shipmentTrackingNumber: [0987654321],
 }
-headers = {
-  "Accept-Language": "chi", # Format {3-character language code}
-}
-response = Dhl::Express::Methods.new(dhl_client).track_shipments(data, headers)
+language = "chi" # Format {3-character language code}
+# If language is empty, default language is English.
+
+response = Dhl::Express::Methods.new(dhl_client).track_shipments(data, language)
 ```
 
 #### Cancel a pickup booking request
