@@ -54,10 +54,11 @@ module Dhl
         dhl_api.post({ username: client.username, password: client.password }, request_params, path)
       end
 
-      def track_shipments(data)
+      def track_shipments(data, language = "eng")
         path = "/tracking"
         request_params = data.slice(*KEYS_OF_TRACK_SHIPMENTS)
-        dhl_api.get({ username: client.username, password: client.password }, request_params, path)
+        headers = { "Accept-Language": language }
+        dhl_api.get({ username: client.username, password: client.password }, request_params, path, headers)
       end
 
       def cancel_pickup(data)
