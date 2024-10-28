@@ -10,6 +10,8 @@ require "openssl"
 require "net/http"
 require "json"
 require "csv"
+require "selenium-webdriver"
+require "zip"
 
 module Dhl
 
