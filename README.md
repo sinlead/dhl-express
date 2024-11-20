@@ -186,6 +186,27 @@ data = {
 response = Dhl::Express::Methods.new(dhl_client).cancel_pickup
 ```
 
+#### Reconcile CSV Parser
+
+```ruby
+parser = Dhl::Express::Reconcile::CsvParser.new(file_path)
+parser.execute
+
+# with options
+parser.csv_table.size # csv row size without header
+offset = 0
+amount = 10
+parser.execute(offset, amount)
+```
+
+#### MyDhl CSV file scraper
+download reconcile csv file from https://mybill.dhl.com/
+
+```ruby
+download_directory = "some/path/"
+Dhl::Express::Reconcile::CsvDownloader.new(account, password, download_directory).execute
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

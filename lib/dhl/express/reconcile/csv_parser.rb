@@ -23,8 +23,10 @@ module Dhl
           @csv_table = CSV.table(file_path)
         end
 
-        def execute(offset, amount, row_keys = %i[])
-          csv_rows = @csv_table[offset..(amount - 1)]
+        def execute(offset = nil, amount = nil, row_keys = %i[])
+          table_offset = gen_table_offset(offset)
+          handle_amount = gen_handle_amount(amount)
+          csv_rows = @csv_table[table_offset..(table_offset + handle_amount - 1)]
           return [] if csv_rows.nil?
 
           keys = (row_keys.nil? || row_keys.empty?) ? DEFAULT_ROW_KEYS : row_keys
@@ -35,6 +37,22 @@ module Dhl
             data << row.to_h.slice(*keys)
           end
           data
+        end
+
+        private
+
+        def gen_table_offset(offset)
+          table_offset = offset || 0
+          raise "offset is not an integer" unless table_offset.is_a?(Integer)
+
+          table_offset
+        end
+
+        def gen_handle_amount(amount)
+          handle_amount = amount || @csv_table.size
+          raise "amount is not an integer" unless handle_amount.is_a?(Integer)
+
+          handle_amount
         end
 
       end
