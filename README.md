@@ -197,11 +197,9 @@ response = Dhl::Express::Methods.new(dhl_client).cancel_pickup
 #### Reconcile Bearer Token
 
 ```ruby
-data = {
-  username: "aaa",
-  password: "92072A...", # Digest::SHA256.hexdigest("billing_password").upcase
-}
-response = Dhl::Express::Methods.new(dhl_client).reconcile_bearer_token(data)
+dhl_client.billing_username = "billing_username"
+dhl_client.billing_password = "billing_password"
+response = Dhl::Express::Methods.new(dhl_client).reconcile_bearer_token
 response.header["Authorization"] # "Bearer xxx..."
 ```
 
@@ -210,7 +208,8 @@ response.header["Authorization"] # "Bearer xxx..."
 ```ruby 
 data = {
   billingDateFrom: "2024-10-01", # date range should not be greater than 14 days
-  billingDateTo: "2024-01-07",
+  billingDateTo: "2024-01-07", # date range should not be greater than 14 days
+  invoiceNo: "TPExxx...", # optional
   withCredit: false,
   bearerToken: "Bearer xxx...", # retrieved from reconcile_bearer_token
 }

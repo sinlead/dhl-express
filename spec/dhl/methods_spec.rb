@@ -100,7 +100,7 @@ RSpec.describe Dhl::Express::Methods do
 
     before do
       expect_any_instance_of(Dhl::Express::ReconcileApi).to receive(:post).with(
-        { username: "billing_username", password: "billing_password" },
+        { username: "billing_username", password: "92072A6461CDE1F49FD289209E10A54DBAB0EF453A48126C51E54FB754F5B783" },
         "/token",
       ).and_return("success_response")
     end

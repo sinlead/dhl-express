@@ -69,7 +69,8 @@ module Dhl
 
       def reconcile_bearer_token
         path = "/token"
-        reconcile_api.post({ username: client.billing_username, password: client.billing_password }, path)
+        digested_password = Digest::SHA256.hexdigest(client.billing_password).upcase
+        reconcile_api.post({ username: client.billing_username, password: digested_password }, path)
       end
 
       def reconcile_billing(data)
