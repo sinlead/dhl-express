@@ -67,10 +67,9 @@ module Dhl
         dhl_api.delete({ username: client.username, password: client.password }, request_params, path)
       end
 
-      def reconcile_bearer_token(data)
+      def reconcile_bearer_token
         path = "/token"
-        request_params = data.slice(:username, :password)
-        reconcile_api.post(request_params, path)
+        reconcile_api.post({ username: client.billing_username, password: client.billing_password }, path)
       end
 
       def reconcile_billing(data)

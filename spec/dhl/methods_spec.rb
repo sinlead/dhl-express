@@ -7,6 +7,8 @@ RSpec.describe Dhl::Express::Methods do
         account_number: "account_number",
         username: "username",
         password: "password",
+        billing_username: "billing_username",
+        billing_password: "billing_password",
       },
     )
   end
@@ -94,13 +96,11 @@ RSpec.describe Dhl::Express::Methods do
   end
 
   describe "#reconcile_bearer_token" do
-    subject { described_class.new(client).reconcile_bearer_token(data) }
-
-    let(:data) { { username: "aaa", password: "bbb" } }
+    subject { described_class.new(client).reconcile_bearer_token }
 
     before do
       expect_any_instance_of(Dhl::Express::ReconcileApi).to receive(:post).with(
-        { username: "aaa", password: "bbb" },
+        { username: "billing_username", password: "billing_password" },
         "/token",
       ).and_return("success_response")
     end
