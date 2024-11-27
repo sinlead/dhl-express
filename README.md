@@ -209,8 +209,8 @@ response.header["Authorization"] # "Bearer xxx..."
 
 ```ruby 
 data = {
-  billingDateFrom: "2020-01-01",
-  billingDateTo: "2020-01-31",
+  billingDateFrom: "2024-10-01", # date range should not be greater than 14 days
+  billingDateTo: "2024-01-07",
   withCredit: false,
   bearerToken: "Bearer xxx...", # retrieved from reconcile_bearer_token
 }
