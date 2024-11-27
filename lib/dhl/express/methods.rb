@@ -77,7 +77,7 @@ module Dhl
         path = "/billing"
         basic_params = { functionCode: "B", billingAccount: client.account_number }
         request_params = basic_params.merge(
-          data.slice(:billingDateFrom, :billingDateTo, :withCredit),
+          data.slice(:billingDateFrom, :billingDateTo, :invoiceNo, :withCredit),
         )
         reconcile_api.post(request_params, path, data[:bearerToken])
       end
