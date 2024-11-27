@@ -24,6 +24,10 @@ Or install it yourself as:
 
 ## Usage
 
+### DHL Express - MyDHL API
+
+https://developer.dhl.com/api-reference/dhl-express-mydhl-api#get-started-section/
+
 #### Retrive Rates for a one piece shipment
 
 ```ruby
@@ -184,6 +188,33 @@ data = {
   reason: "bbb",
 }
 response = Dhl::Express::Methods.new(dhl_client).cancel_pickup
+```
+
+### DHL Billing API Service
+
+由 DHL IT 後台協助建立 Billing API 帳號以及密碼。（與 DHL Express - MyDHL API 不同 username password，同個 account_number）。
+
+#### Reconcile Bearer Token
+
+```ruby
+data = {
+  username: "aaa",
+  password: "92072A...", # Digest::SHA256.hexdigest("billing_password").upcase
+}
+response = Dhl::Express::Methods.new(dhl_client).reconcile_bearer_token(data)
+response.header["Authorization"] # "Bearer xxx..."
+```
+
+#### Reconcile Billing
+
+```ruby 
+data = {
+  billingDateFrom: "2020-01-01",
+  billingDateTo: "2020-01-31",
+  withCredit: false,
+  bearerToken: "Bearer xxx...", # retrieved from reconcile_bearer_token
+}
+response = Dhl::Express::Methods.new(dhl_client).reconcile_billing(data)
 ```
 
 ## Development

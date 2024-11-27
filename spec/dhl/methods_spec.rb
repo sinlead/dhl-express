@@ -92,4 +92,49 @@ RSpec.describe Dhl::Express::Methods do
 
     it { is_expected.to eq("success_response") }
   end
+
+  describe "#reconcile_bearer_token" do
+    subject { described_class.new(client).reconcile_bearer_token(data) }
+
+    let(:data) { { username: "aaa", password: "bbb" } }
+
+    before do
+      expect_any_instance_of(Dhl::Express::ReconcileApi).to receive(:post).with(
+        { username: "aaa", password: "bbb" },
+        "/token",
+      ).and_return("success_response")
+    end
+
+    it { is_expected.to eq("success_response") }
+  end
+
+  describe "#reconcile_billing" do
+    subject { described_class.new(client).reconcile_billing(data) }
+
+    let(:data) do
+      {
+        billingAccount: "billing_account",
+        billingDateFrom: "2020-01-01",
+        billingDateTo: "2020-01-31",
+        withCredit: false,
+        bearerToken: "Bearer xxx",
+      }
+    end
+
+    before do
+      expect_any_instance_of(Dhl::Express::ReconcileApi).to receive(:post).with(
+        {
+          functionCode: "B",
+          billingAccount: "account_number",
+          billingDateFrom: "2020-01-01",
+          billingDateTo: "2020-01-31",
+          withCredit: false,
+        },
+        "/billing",
+        "Bearer xxx",
+      ).and_return("success_response")
+    end
+
+    it { is_expected.to eq("success_response") }
+  end
 end
