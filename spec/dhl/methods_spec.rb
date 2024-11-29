@@ -7,6 +7,8 @@ RSpec.describe Dhl::Express::Methods do
         account_number: "account_number",
         username: "username",
         password: "password",
+        billing_username: "billing_username",
+        billing_password: "billing_password",
       },
     )
   end
@@ -87,6 +89,49 @@ RSpec.describe Dhl::Express::Methods do
         { username: "username", password: "password" },
         { requestorName: "aaa", reason: "bbb" },
         "/pickups/123",
+      ).and_return("success_response")
+    end
+
+    it { is_expected.to eq("success_response") }
+  end
+
+  describe "#reconcile_bearer_token" do
+    subject { described_class.new(client).reconcile_bearer_token }
+
+    before do
+      expect_any_instance_of(Dhl::Express::ReconcileApi).to receive(:post).with(
+        { username: "billing_username", password: "92072A6461CDE1F49FD289209E10A54DBAB0EF453A48126C51E54FB754F5B783" },
+        "/token",
+      ).and_return("success_response")
+    end
+
+    it { is_expected.to eq("success_response") }
+  end
+
+  describe "#reconcile_billing" do
+    subject { described_class.new(client).reconcile_billing(data) }
+
+    let(:data) do
+      {
+        billingAccount: "billing_account",
+        billingDateFrom: "2020-01-01",
+        billingDateTo: "2020-01-31",
+        withCredit: false,
+        bearerToken: "Bearer xxx",
+      }
+    end
+
+    before do
+      expect_any_instance_of(Dhl::Express::ReconcileApi).to receive(:post).with(
+        {
+          functionCode: "B",
+          billingAccount: "account_number",
+          billingDateFrom: "2020-01-01",
+          billingDateTo: "2020-01-31",
+          withCredit: false,
+        },
+        "/billing",
+        "Bearer xxx",
       ).and_return("success_response")
     end
 

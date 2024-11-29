@@ -67,10 +67,29 @@ module Dhl
         dhl_api.delete({ username: client.username, password: client.password }, request_params, path)
       end
 
+      def reconcile_bearer_token
+        path = "/token"
+        digested_password = Digest::SHA256.hexdigest(client.billing_password).upcase
+        reconcile_api.post({ username: client.billing_username, password: digested_password }, path)
+      end
+
+      def reconcile_billing(data)
+        path = "/billing"
+        basic_params = { functionCode: "B", billingAccount: client.account_number }
+        request_params = basic_params.merge(
+          data.slice(:billingDateFrom, :billingDateTo, :invoiceNo, :withCredit),
+        )
+        reconcile_api.post(request_params, path, data[:bearerToken])
+      end
+
       private
 
       def dhl_api
         Dhl::Express::Api.new({ sandbox: client.sandbox })
+      end
+
+      def reconcile_api
+        Dhl::Express::ReconcileApi.new
       end
 
     end

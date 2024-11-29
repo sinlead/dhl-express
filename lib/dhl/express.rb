@@ -2,6 +2,7 @@
 
 require "dhl/express/version"
 require "dhl/express/api"
+require "dhl/express/reconcile_api"
 require "dhl/express/client"
 require "dhl/express/methods"
 require "openssl"
